@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Core IT</title>
+    <style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+    line-height: 1.6;
+}
+
+header {
+    background-color: #160391c4;
+    padding: 10px 20px;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.logo img {
+    width: 50px;
+    transition: width 0.3s ease;
+}
+.logo img:hover {
+    width: 130px;
+}
+
+/* Navigation Styling */
+nav {
+    display: flex;
+    align-items: center;
+}
+
+/* Navigation Links */
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 8px 12px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 4px;
+    position: relative;
+}
+
+.nav-links li a:hover,
+.nav-links li a.active {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+}
+
+/* Active Link Indicator */
+.nav-links li a.active::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    background-color: #fff;
+    bottom: 0;
+    left: 0;
+    border-radius: 2px;
+}
+
+/* Hamburger Menu Styling */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    .nav-links {
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: #007BFF;
+        flex-direction: column;
+        width: 200px;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-in-out;
+        border-radius: 0 0 0 10px;
+    }
+
+    .nav-links li {
+        text-align: right;
+        padding: 10px 20px;
+    }
+
+    .nav-links li a {
+        display: block;
+    }
+
+    .nav-links.open {
+        max-height: 500px; /* Arbitrary high value for transition */
+    }
+
+    .hamburger {
+        display: flex;
+    }
+}
+
+/* Hamburger Menu Active State */
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+.hero {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJFjU1hr2VeEWGRGQ5PHiRLyY12P4aXhieTA&s');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+#products {
+    background-color: #fff;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.product-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.product-card {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    width: 250px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.product-card img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.buy-button {
+    background-color: #007BFF;
+    margin-top: 10px;
+}
+
+.buy-button:hover {
+    background-color: #0056b3;
+}
+
+#services {
+    background-color: #160391c4;
+    color: white;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.services-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.service-item {
+    background-color: #130476fa;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.service-item img {
+    width: 30vh;
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
+
+#about {
+    padding: 50px 20px;
+    background-color: #f8f9fa;
+    text-align: center;
+}
+
+.team {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.team-member {
+    width: 200px;
+    transition: transform 0.3s ease;
+}
+
+.team-member:hover {
+    transform: translateY(-10px);
+}
+
+.team-member img {
+    width: 100%;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+#contact {
+    padding: 50px 20px;
+    background-color: #f8f9fa; /* Warna latar belakang yang lembut */
+    text-align: center;
+}
+
+#contact-form {
+    max-width: 600px; /* Lebar maksimal yang lebih lebar */
+    margin: 0 auto;
+    text-align: left;
+    background-color: #ffffff; /* Warna latar belakang putih */
+    padding: 30px;
+    border-radius: 10px; /* Membulatkan sudut */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bayangan lembut */
+    
+}
+#contact-form h2 {
+    text-align: center;
+
+}
+#contact-form label {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 5px;
+    display: block;
+}
+
+#contact-form input,
+#contact-form textarea {
+    width: 100%;
+    padding: 12px; /* Padding yang sedikit lebih besar untuk kenyamanan */
+    margin-bottom: 20px; /* Jarak bawah yang lebih besar */
+    border-radius: 5px;
+    border: 1px solid #ccc; /* Border yang lebih terang */
+    box-sizing: border-box; /* Memastikan padding tidak mempengaruhi ukuran total */
+    font-size: 16px;
+}
+
+#contact-form input:focus,
+#contact-form textarea:focus {
+    border-color: #007BFF; /* Warna border saat fokus */
+    outline: none; /* Menghilangkan outline default */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.2); /* Bayangan lembut saat fokus */
+}
+
+#contact-form button {
+    background-color: #007BFF; /* Warna tombol yang menarik */
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#contact-form button:hover {
+    background-color: #0056b3; /* Warna tombol saat hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Bayangan lembut saat hover */
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.social-media img {
+    width: 30px;
+    margin: 0 10px;
+    filter: invert(100%);
+}
+
+.social-media a:hover img {
+    filter: invert(70%);
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="img/logo.png" alt="Komputer Shop Logo">
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#products">Produk</a></li>
+                <li><a href="#services">Layanan</a></li>
+                <li><a href="#about">Tentang Kami</a></li>
+                <li><a href="#contact">Kontak</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+    
+
+    <section id="home" class="hero">
+        <h1>Temukan Perangkat Komputer Terbaik di Core IT</h1>
+        <p>Kami menyediakan berbagai perangkat komputer berkualitas tinggi dengan harga yang bersaing.</p>
+        <button id="cta-button">Lihat Produk</button>
+    </section>
+
+    <section id="products">
+        <h2>Produk Unggulan</h2>
+        <br>
+        
+        <div class="product-grid">
+            <div class="product-card">
+                <img src="https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full//catalog-image/86/MTA-140415033/no-brand_no-brand_full01.jpg" alt="Laptop">
+                <h3>Laptop Asus TUF</h3>
+                <p>Prosesor: Intel Core i5, RAM: 16GB, Storage: 1TB SSD</p>
+                <p>Harga: Rp15.000.000</p>
+                <button class="buy-button">Beli Sekarang</button>
+            </div>
+            <div class="product-card">
+                <img src="https://images.tokopedia.net/img/cache/500-square/VqbcmM/2023/10/27/874adc49-e06d-4021-a9ff-028616b180aa.jpg" alt="Desktop">
+                <h3>Desktop ABC</h3>
+                <p>Prosesor: Intel Core i5, RAM: 32GB, Storage: 2TB HDD</p>
+                <p>Harga: Rp20.000.000</p>
+                <button class="buy-button">Beli Sekarang</button>
+            </div>
+            <div class="product-card">
+                <img src="https://images.tokopedia.net/img/cache/700/VqbcmM/2022/2/11/9f7a95d3-1827-420b-a8e0-ad6bdb82ab98.jpg" alt="Keyboard">
+                <h3>Keyboard Mechanical</h3>
+                <p>Switch: White Grey, Backlight: RGB</p>
+                <p>Harga: Rp1.800.000</p>
+                <button class="buy-button">Beli Sekarang</button>
+            </div>
+            <div class="product-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ06dytJcAtmFHlUHP3NDxsoahqeCt5cWzsgA&s" alt="Mouse">
+                <h3>Gaming Mouse Ultra</h3>
+                <p>DPI: 16000, Tipe: Wired, Tombol: 8</p>
+                <p>Harga: Rp1.500.000</p>
+                <button class="buy-button">Beli Sekarang</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="services">
+        <h2>Layanan Kami</h2>
+        <br>
+        <div class="services-container">
+            <div class="service-item">
+                <img src="https://siplah-oss.tokoladang.co.id/merchant/5032/product/Hpz5XbFwGjKBbCsUGavnihrdh4s0kRNG6sPyJi8g.jpg" alt="Perbaikan Komputer">
+                <h3>Perbaikan Komputer</h3>
+                <p>Kami menawarkan layanan perbaikan komputer yang cepat dan efisien.</p>
+            </div>
+            <div class="service-item">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTWRMI04tAfUwA79_zuLlZDwrqbixsUfWfsA&s" alt="Konsultasi IT">
+                <h3>Konsultasi IT</h3>
+                <p>Dapatkan solusi IT terbaik dari ahli kami untuk kebutuhan bisnis Anda.</p>
+            </div>
+            <div class="service-item">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBV95swCwVBNA1P1kM0p05b4VVH2z1orE-Pg&s" alt="Pengiriman Cepat">
+                <h3>Pengiriman Cepat</h3>
+                <p>Kami menawarkan layanan pengiriman cepat dan aman ke seluruh Indonesia.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2>Tentang Kami</h2>
+        <p>Core IT adalah penyedia perangkat komputer terkemuka di Indonesia sejak tahun 2018. Kami berkomitmen untuk menyediakan produk berkualitas tinggi dengan layanan pelanggan yang terbaik. Kami memiliki tim profesional yang siap membantu Anda dalam memilih perangkat komputer yang tepat untuk kebutuhan Anda.</p>
+        <br>
+        <div class="team">
+            <div class="team-member">
+                <img src="https://img.pikbest.com/origin/10/51/47/90MpIkbEsTUe5.jpg!bw700" alt="CEO">
+                <h3>Jane Doe</h3>
+                <p>CEO</p>
+            </div>
+            <div class="team-member">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRj5EIsXuDfha5W3bjHf7PmZ9FuEuebJF2m7w&s" alt="CTO">
+                <h3>John Doe</h3>
+                <p>CTO</p>
+            </div>
+            <div class="team-member">
+                <img src="https://img.pikbest.com/ai/illus_our/20230413/a2f22ed90ea1664922b14879c5ef7a86.jpg!f305cw" alt="Support">
+                <br>
+                <br>
+                <h3>Alice Smith</h3>
+                <p>Head of Support</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <form id="contact-form">
+            <h2>Kontak Kami</h2>
+            <label for="name">Nama:</label>
+            <input type="text" id="name" name="name" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <label for="message">Pesan:</label>
+            <textarea id="message" name="message" required></textarea>
+            <button type="submit">Kirim</button>
+        </form>
+    </section>
+
+
+    <footer>    
+        <div class="footer-content">
+            <p>Jl. Setiabudi No.18 Medan</p>
+            <p>&copy; 2024 Core IT. Semua Hak Dilindungi.</p>
+            <div class="social-media">
+                <a href="https://facebook.com"><img src="https://freepnglogo.com/images/all_img/facebook-circle-logo-png.png" alt="Facebook"></a>
+                <a href="https://twitter.com"><img src="https://freepnglogo.com/images/all_img/1691832460x-twitter-logo-png.png" alt="Twitter"></a>
+                <a href="https://instagram.com"><img src="https://freepnglogo.com/images/all_img/1715965947instagram-logo-png%20(1).png" alt="Instagram"></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
